@@ -1,0 +1,192 @@
+@startuml
+'----------------------------------------
+' Banking UML Class Diagram - Detailed (v2)
+'----------------------------------------
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam classFontSize 13
+skinparam classFontColor #333
+skinparam ArrowColor #777
+
+title Banking System - UML Class Diagram (Full API View)
+
+'=======================[ ENTITIES ]=======================
+package "Domain Entities" {
+  class Customer <<Entity>> {
+    - Long id
+    - String name
+    - String email
+    - String phone
+    - KYCStatus kycStatus
+    --
+    + register(name:String, email:String, phone:String): RegistrationStatus
+    + uploadKyc(documents:List<Document>): KYCStatus
+  }
+
+  class KycRecord <<Entity>> {
+    - Long id
+    - List<Document> documents
+    - KYCStatus status
+    --
+    + verifyDocuments(): boolean
+  }
+
+  class Account <<Entity>> {
+    - Long id
+    - String type
+    - BigDecimal balance
+    - AccountStatus status
+    --
+    + createAccount(customerId:Long, type:String): Account
+    + updateBalance(amount:BigDecimal): void
+  }
+
+  class Transaction <<Entity>> {
+    - Long id
+    - TransactionType type
+    - BigDecimal amount
+    - LocalDateTime date
+    - TransactionStatus status
+    --
+    + deposit(accountId:Long, amount:BigDecimal): TransactionStatus
+    + withdraw(accountId:Long, amount:BigDecimal): TransactionStatus
+    + transfer(fromAccountId:Long, toAccountId:Long, amount:BigDecimal): TransactionStatus
+    + getHistory(accountId:Long): List<Transaction>
+  }
+
+  class Loan <<Entity>> {
+    - Long id
+    - BigDecimal principal
+    - double interestRate
+    - int tenureMonths
+    - LoanStatus status
+    --
+    + applyForLoan(customerId:Long, amount:BigDecimal, tenureMonths:int): LoanStatus
+    + generateEmiSchedule(): List<EMI>
+    + repayEmi(loanId:Long, amount:BigDecimal): PaymentStatus
+  }
+
+  class AuditLog <<Entity>> {
+    - Long id
+    - String operationType
+    - String metadata
+    - LocalDateTime timestamp
+    --
+    + recordOperation(type:String, metadata:String): LoggedOperation
+    + getAuditLogs(accountId:Long): List<AuditLog>
+  }
+}
+
+'=======================[ SERVICES ]=======================
+package "Services" {
+  interface CustomerService {
+    + submitRegistration(data:Customer): RegistrationStatus
+    + uploadKyc(customerId:Long, documents:List<Document>): KYCStatus
+  }
+
+  interface AccountService {
+    + createAccount(customerId:Long, type:String): Account
+    + getAccountDetails(accountId:Long): Account
+  }
+
+  interface TransactionService {
+    + deposit(accountId:Long, amount:BigDecimal): TransactionStatus
+    + withdraw(accountId:Long, amount:BigDecimal): TransactionStatus
+    + transferFunds(fromAccountId:Long, toAccountId:Long, amount:BigDecimal): TransactionStatus
+    + getTransactionHistory(accountId:Long): List<Transaction>
+  }
+
+  interface LoanService {
+    + applyForLoan(customerId:Long, amount:BigDecimal, tenureMonths:int): LoanStatus
+    + repayEMI(loanId:Long, amount:BigDecimal): PaymentStatus
+    + adjustEMI(loanId:Long, newSchedule:List<EMI>): boolean
+  }
+
+  interface KYCService {
+    + verifyDocuments(documents:List<Document>): boolean
+  }
+
+  interface AuditService {
+    + recordOperation(type:String, metadata:String): LoggedOperation
+    + getAuditLogs(accountId:Long): List<AuditLog>
+  }
+}
+
+'=======================[ CONTROLLERS ]=======================
+package "Controllers" {
+  class CustomerController <<RestController>> {
+    + registerCustomer(request:CustomerDTO): ResponseEntity<RegistrationStatus>
+    + uploadKyc(customerId:Long, files:MultipartFile[]): ResponseEntity<KYCStatus>
+  }
+
+  class AccountController <<RestController>> {
+    + createAccount(request:AccountRequestDTO): ResponseEntity<Account>
+    + getAccountDetails(id:Long): ResponseEntity<Account>
+  }
+
+  class TransactionController <<RestController>> {
+    + deposit(request:TransactionDTO): ResponseEntity<TransactionStatus>
+    + withdraw(request:TransactionDTO): ResponseEntity<TransactionStatus>
+    + transfer(request:TransferDTO): ResponseEntity<TransactionStatus>
+    + getTransactionHistory(accountId:Long): ResponseEntity<List<Transaction>>
+  }
+
+  class LoanController <<RestController>> {
+    + applyForLoan(request:LoanRequestDTO): ResponseEntity<LoanStatus>
+    + repayEmi(request:PaymentDTO): ResponseEntity<PaymentStatus>
+    + adjustEmi(request:AdjustEmiDTO): ResponseEntity<Boolean>
+  }
+
+  class AuditController <<RestController>> {
+    + recordOperation(request:AuditDTO): ResponseEntity<LoggedOperation>
+    + getAuditLogs(accountId:Long): ResponseEntity<List<AuditLog>>
+  }
+}
+
+'=======================[ REPOSITORIES ]=======================
+package "Repositories" {
+  interface CustomerRepository <<Repository>> {
+    + findByEmail(email:String): Optional<Customer>
+  }
+
+  interface AccountRepository <<Repository>> {
+    + findByCustomerId(id:Long): List<Account>
+  }
+
+  interface TransactionRepository <<Repository>> {
+    + findByAccountId(id:Long): List<Transaction>
+  }
+
+  interface LoanRepository <<Repository>> {
+    + findByCustomerId(id:Long): List<Loan>
+  }
+
+  interface AuditRepository <<Repository>> {
+    + findByAccountId(id:Long): List<AuditLog>
+  }
+}
+
+'=======================[ RELATIONSHIPS ]=======================
+Customer "1" -- "0..1" KycRecord : verifies >
+Customer "1" -- "0..*" Account : owns >
+Account "1" -- "0..*" Transaction : records >
+Customer "1" -- "0..*" Loan : applies >
+Customer "0..*" -- "0..*" AuditLog : logs >
+
+CustomerController ..> CustomerService
+AccountController ..> AccountService
+TransactionController ..> TransactionService
+LoanController ..> LoanService
+AuditController ..> AuditService
+
+CustomerService ..> CustomerRepository
+AccountService ..> AccountRepository
+TransactionService ..> TransactionRepository
+LoanService ..> LoanRepository
+KYCService ..> CustomerRepository
+AuditService ..> AuditRepository
+
+CustomerService ..> KYCService : uses
+LoanService ..> AccountService : updatesBalance
+
+@enduml
