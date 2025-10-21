@@ -1,4 +1,4 @@
-package org.example.config;
+package com.cbs.config;
 
 public class SecurityConfig {
 
