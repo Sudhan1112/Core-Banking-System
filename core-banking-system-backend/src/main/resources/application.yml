@@ -1,0 +1,31 @@
+# 1. Disable Spring Boot's default Data Source Auto-Configuration
+# We define them manually to manage multiple DBs
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+
+# 2. PostgreSQL Configuration (Relational - Primary)
+# Used for core banking tables (Customer, Account, Loan, etc.)
+datasource:
+  postgres:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/core_banking_db
+    username: cbs_user  # CHANGE THESE VALUES
+    password: cbs_password # CHANGE THESE VALUES
+  
+  jpa:
+    hibernate:
+      ddl-auto: update # Use 'none' or 'validate' in production
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# 3. MongoDB Configuration (Non-Relational - Secondary)
+# Used for Audit Logs (AuditLogRepository)
+data:
+  mongodb:
+    host: localhost
+    port: 27017
+    database: cbs_audit_log_db
