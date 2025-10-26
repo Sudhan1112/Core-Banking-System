@@ -1,5 +1,6 @@
 spring:
   datasource:
+    # Values must be provided via environment variables (no H2 fallback)
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
@@ -11,16 +12,23 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update  # Changed from 'update' to 'validate' since we're using Flyway
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true 
+        format_sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    baseline-version: 0
 
 supabase:
   url: https://miuwbzospgctawtkhwwj.supabase.co
-  key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pdXdiem9zcGdjdGF3dGtod3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5OTMzNDIsImV4cCI6MjA3NjU2OTM0Mn0.glspv9RBaeDCpjK0D5QiU1PFPRH0j_Ttc_mlRtroLm4
+  # Read supabase anon/service role key from environment for security
+  key: ${SUPABASE_ANON_KEY}
 
 logging:
   level:
@@ -28,3 +36,4 @@ logging:
     org.hibernate: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.flywaydb: DEBUG
