@@ -88,6 +88,7 @@ Because **banking without security is just monopoly** 🫠
 
 ## 🏗️ Project Structure
 
+```
 cbs-backend/
 │
 ├── src/
@@ -409,7 +410,7 @@ cbs-frontend/
 ├── tsconfig.json
 ├── package.json
 └── README.md
-
+```
 ---
 
 ## 📊 Diagrams
