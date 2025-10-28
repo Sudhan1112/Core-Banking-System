@@ -495,3 +495,5 @@ Pull requests are welcome — don’t break the bank (literally).
 This project will be licensed after MVP finalization.
 
 ---
+
+Not yet done anything so far
