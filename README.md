@@ -496,5 +496,3 @@ This project will be licensed after MVP finalization.
 
 ---
 
-Doing only
-
