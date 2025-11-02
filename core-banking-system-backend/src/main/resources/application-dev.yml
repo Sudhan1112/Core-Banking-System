@@ -1,6 +1,5 @@
 spring:
   datasource:
-    # Values must be provided via environment variables (no H2 fallback)
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
@@ -12,7 +11,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update  # Changed from 'update' to 'validate' since we're using Flyway
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -27,7 +26,6 @@ spring:
 
 supabase:
   url: https://miuwbzospgctawtkhwwj.supabase.co
-  # Read supabase anon/service role key from environment for security
   key: ${SUPABASE_ANON_KEY}
 
 logging:

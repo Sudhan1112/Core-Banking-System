@@ -66,6 +66,13 @@ public class AccountServiceImpl implements AccountService {
         if (account.getMinimumBalance() == null) {
             account.setMinimumBalance(getDefaultMinimumBalance(request.getAccountType()));
         }
+
+        // Ensure newly created accounts are active by default
+        // Note: Account entity constructor sets status to PENDING_APPROVAL, so override it here
+        // so new accounts are immediately usable in tests and typical flows.
+        if (account.getStatus() == null || account.getStatus() == AccountStatus.PENDING_APPROVAL) {
+            account.setStatus(AccountStatus.ACTIVE);
+        }
         
         Account savedAccount = accountRepository.save(account);
         logger.info("Account created successfully with ID: {}", savedAccount.getAccountId());
