@@ -22,10 +22,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/api/users/register").permitAll()
-                .requestMatchers("/api/users/exists/**").permitAll()
-                .requestMatchers("/api/accounts/**").permitAll() // Allow all account endpoints for now
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             );
         
         return http.build();

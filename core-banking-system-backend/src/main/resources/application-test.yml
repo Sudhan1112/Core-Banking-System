@@ -4,14 +4,34 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password: password
+    
   jpa:
     hibernate:
       ddl-auto: create-drop
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
+        
   h2:
     console:
       enabled: true
+
+  # Disable security
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+  # Jackson configuration for proper JSON serialization
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+logging:
+  level:
+    org.springframework: WARN
+    com.cbs: DEBUG
+    org.springframework.web: DEBUG
