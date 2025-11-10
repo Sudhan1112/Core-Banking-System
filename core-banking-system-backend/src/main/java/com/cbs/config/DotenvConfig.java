@@ -18,18 +18,24 @@ public class DotenvConfig implements ApplicationContextInitializer<ConfigurableA
         try {
             Dotenv dotenv = Dotenv.configure()
                     .ignoreIfMissing()
+                    .systemProperties()
+                    .directory("./")
                     .load();
             
-            Map<String, Object> envMap = new HashMap<>();
-            dotenv.entries().forEach(entry -> {
-                envMap.put(entry.getKey(), entry.getValue());
-            });
-            
-            environment.getPropertySources()
-                    .addFirst(new MapPropertySource("dotenvProperties", envMap));
+            if (dotenv != null) {
+                Map<String, Object> envMap = new HashMap<>();
+                dotenv.entries().forEach(entry -> 
+                    envMap.put(entry.getKey(), entry.getValue())
+                );
+                
+                if (!envMap.isEmpty()) {
+                    environment.getPropertySources()
+                            .addFirst(new MapPropertySource("dotenvProperties", envMap));
+                }
+            }
         } catch (Exception e) {
-            // .env file not found, will use system environment variables
-            System.out.println("No .env file found, using system environment variables");
+            System.out.println("Failed to load .env file: " + e.getMessage());
+            System.out.println("Using system environment variables instead");
         }
     }
 }

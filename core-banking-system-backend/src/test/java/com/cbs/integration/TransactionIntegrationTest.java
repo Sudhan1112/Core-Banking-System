@@ -1,6 +1,8 @@
 package com.cbs.integration;
 
+import com.cbs.config.TestSecurityConfig;
 import com.cbs.model.dto.request.DepositRequest;
+import org.springframework.context.annotation.Import;
 import com.cbs.model.dto.request.TransferRequest;
 import com.cbs.model.dto.request.WithdrawalRequest;
 import com.cbs.model.dto.response.TransactionResponse;
@@ -31,9 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@TestPropertySource(properties = {
-        "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration"
-})
+@Import(TestSecurityConfig.class)
 class TransactionIntegrationTest {
 
     @LocalServerPort
@@ -230,10 +230,11 @@ class TransactionIntegrationTest {
         restTemplate.postForEntity(baseUrl + "/deposit", new HttpEntity<>(testDepositRequest, headers), TransactionResponse.class);
         restTemplate.postForEntity(baseUrl + "/withdraw", new HttpEntity<>(testWithdrawalRequest, headers), TransactionResponse.class);
 
-        ResponseEntity<Map> debitsResponse = restTemplate.getForEntity(
-                baseUrl + "/account/" + sourceAccountId + "/debits", Map.class);
-        ResponseEntity<Map> creditsResponse = restTemplate.getForEntity(
-                baseUrl + "/account/" + sourceAccountId + "/credits", Map.class);
+        Class<Map<String, Object>> responseType = (Class<Map<String, Object>>) (Class<?>) Map.class;
+        ResponseEntity<Map<String, Object>> debitsResponse = restTemplate.getForEntity(
+                baseUrl + "/account/" + sourceAccountId + "/debits", responseType);
+        ResponseEntity<Map<String, Object>> creditsResponse = restTemplate.getForEntity(
+                baseUrl + "/account/" + sourceAccountId + "/credits", responseType);
 
         assertEquals(HttpStatus.OK, debitsResponse.getStatusCode());
         assertEquals(HttpStatus.OK, creditsResponse.getStatusCode());
