@@ -415,15 +415,46 @@ cbs-frontend/
 
 ## 📊 Diagrams
 
-| Design                | Status                                       |
-| --------------------- | -------------------------------------------- |
-| **UI/UX**             | Add link here → 🔗 *(Figma/Dribbble)*        |
-| **UML Class Diagram** | `docs/UML_Class_Diagram.png` *(placeholder)* |
-| **ERD Diagram**       | `docs/ERD_Diagram.png` *(placeholder)*       |
-
-Images get rendered automatically when uploaded ✅
+Below are the architectural and design diagrams used in this project.  
+UI/UX link will be added soon.
 
 ---
+
+### 🎨 UI / UX  
+Link coming soon → 🔗 *Figma Design (To be added)*
+
+---
+
+### 🧩 UML Class Diagram  
+``docs/UML_Class_Diagram.png``
+
+<details>
+  <summary>Click to view UML Diagram Images</summary>
+
+  <img width="1031" alt="UML Image 1" src="https://github.com/user-attachments/assets/57da33b7-5b73-4c6e-ae5d-0e66c06cccf5" />
+
+  <img width="547" alt="UML Image 2" src="https://github.com/user-attachments/assets/e88d70c7-e544-42d4-9bda-111c209cfdcf" />
+
+  <img width="463" alt="UML Image 3" src="https://github.com/user-attachments/assets/3483c2eb-785e-4dc1-bae4-6f89e4a4545a" />
+
+  <img width="419" alt="UML Image 4" src="https://github.com/user-attachments/assets/801d39f3-8090-40df-8309-9cea73223b7d" />
+
+  <img width="1081" alt="UML Image 5" src="https://github.com/user-attachments/assets/dd8878f5-c394-42dd-9d39-50989d61006a" />
+
+</details>
+
+---
+
+### 🗂️ ERD Diagram  
+``docs/ERD_Diagram.png``
+
+**Miro Board:**  
+🔗 https://miro.com/app/board/uXjVJ9AxbxQ=/?share_link_id=687314840776
+
+<img width="600" alt="ERD Image" src="https://github.com/user-attachments/assets/21184ef5-8bbf-4520-b0e9-7d7207a08012" />
+
+---
+
 
 ## 🔗 API Documentation
 
