@@ -4,12 +4,6 @@ if (Test-Path -Path .env) {
         $key, $value = $_ -split '=', 2
         [Environment]::SetEnvironmentVariable($key.Trim(), $value.Trim(), "Process")
     }
-} else {
-    Write-Host ".env file not found. Running with default environment variables."
-}
-
-if ($env:SPRING_DATASOURCE_URL) {
-    Write-Host "Using Database: $($env:SPRING_DATASOURCE_URL)"
 }
 
 # Check for Maven
@@ -36,4 +30,4 @@ if (-not (Get-Command "mvn" -ErrorAction SilentlyContinue)) {
 }
 
 Write-Host "Using Maven: $MvnCmd"
-& $MvnCmd spring-boot:run
+& $MvnCmd test

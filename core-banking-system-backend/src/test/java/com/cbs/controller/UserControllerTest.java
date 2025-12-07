@@ -1,9 +1,12 @@
 package com.cbs.controller;
 
+import com.cbs.config.SecurityConfig;
 import com.cbs.model.dto.request.UserRegistrationRequest;
 import com.cbs.model.dto.response.UserResponse;
 import com.cbs.model.enums.UserStatus;
+import com.cbs.service.impl.CustomUserDetailsService;
 import com.cbs.service.interface_.UserService;
+import com.cbs.util.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -27,7 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
-@AutoConfigureMockMvc(addFilters = false)
+@Import(SecurityConfig.class)
 class UserControllerTest {
 
     @Autowired
@@ -35,6 +40,12 @@ class UserControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private JwtUtils jwtUtils;
+
+    @MockBean
+    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -72,8 +83,8 @@ class UserControllerTest {
 
         // Act & Assert
         mockMvc.perform(post("/api/users/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testUserRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(testUserRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.userId").value(1))
                 .andExpect(jsonPath("$.username").value("testuser"))
@@ -89,13 +100,14 @@ class UserControllerTest {
 
         // Act & Assert
         mockMvc.perform(post("/api/users/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(invalidRequest)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     @DisplayName("Should get all users successfully")
+    @WithMockUser
     void getAllUsers_Success() throws Exception {
         // Arrange
         List<UserResponse> users = Arrays.asList(testUserResponse);
@@ -154,8 +166,8 @@ class UserControllerTest {
 
         // Act & Assert
         mockMvc.perform(put("/api/users/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testUserRequest)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(testUserRequest)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId").value(1));
     }
