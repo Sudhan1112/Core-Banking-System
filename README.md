@@ -455,18 +455,24 @@ Trust Issues? We test it.
 
 ## 🐳 Docker Support
 
-One command to run everything:
+One command to run everything (Backend + Database):
 
 ```sh
-docker-compose up --build
+docker compose up --build
 ```
 
 Spins up:
-✅ Backend
-✅ Frontend
-✅ PostgreSQL
+✅ Backend (Port 8080)
+✅ PostgreSQL (Port 5432)
 
-Cloud-ready. Developer-friendly.
+---
+
+## 💻 Running Locally (Manual)
+
+If you prefer running without Docker, utilize the helper scripts which auto-configure the environment (and even Maven):
+
+* **Windows**: `.\run-dev.ps1`
+* **Linux/Mac**: `./run-dev.sh`
 
 ---
 

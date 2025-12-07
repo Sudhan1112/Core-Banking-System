@@ -1,0 +1,42 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< org.example:core-banking-system >-------------------
+[INFO] Building Core Banking System 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ core-banking-system ---
+[INFO] Deleting C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ core-banking-system ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ core-banking-system ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 41 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ core-banking-system ---
+[INFO] skip non existing resourceDirectory C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ core-banking-system ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 14 source files with javac [debug release 21] to target\test-classes
+[INFO] /C:/Users/Sudhan S/OneDrive/Desktop/projects/Core-banking-system/core-banking-system-backend/src/test/java/com/cbs/integration/TransactionIntegrationTest.java: C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\src\test\java\com\cbs\integration\TransactionIntegrationTest.java uses unchecked or unsafe operations.
+[INFO] /C:/Users/Sudhan S/OneDrive/Desktop/projects/Core-banking-system/core-banking-system-backend/src/test/java/com/cbs/integration/TransactionIntegrationTest.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ core-banking-system ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ core-banking-system ---
+[INFO] Building jar: C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\target\core-banking-system-1.0.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.2.0:repackage (repackage) @ core-banking-system ---
+[INFO] Replacing main artifact C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\target\core-banking-system-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\target\core-banking-system-1.0.0.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11.161 s
+[INFO] Finished at: 2025-12-07T23:28:57+05:30
+[INFO] ------------------------------------------------------------------------
