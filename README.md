@@ -3,19 +3,6 @@
 **Secure | Scalable | Enterprise-Grade Banking App**
 
 > A modern digital banking platform enabling secure user onboarding, account management, money transfers, claims processing, and real-time balance updates.
->
-> ---
->
-> ## 🟢 Project Status: Backend 85% Complete
->
-> | Module | Status | Tests | Notes |
-> | :--- | :---: | :---: | :--- |
-> | **User** | ✅ Done | ✅ Passing | Full registration/login flow |
-> | **Account** | ✅ Done | ✅ Passing | Multi-account support |
-> | **Transaction** | ✅ Done | ✅ Passing | Secure money transfer logic |
-> | **Loan** | ✅ Done | ⚠️ Partial | Needs Integration Tests |
-> | **Audit** | ✅ Done | ✅ Passing | Tracks all critical actions |
-> | **KYC** | ✅ Done | ❌ Missing | Needs full test suite |
 
 ---
 
@@ -95,15 +82,8 @@ Because **banking without security is just monopoly** 🫠
 
 * Customer account control
 * Approval workflows
-* Customer account control
 * Approval workflows
 * Analytics dashboard (roadmap)
-
-### 📋 Audit System (New!)
-
-* Tracks WHO did WHAT and WHEN.
-* Captures IP, User Agent, and previous/new values for data changes.
-* Admin-only access to view logs via API.
 
 ---
 
