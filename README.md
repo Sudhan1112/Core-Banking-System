@@ -175,6 +175,9 @@ cbs-backend/
 │   │   │           │       ├── KYCStatus.java
 │   │   │           │       └── AuditAction.java
 │   │   │           │
+│   │   │           ├── annotation/
+│   │   │           │   └── Auditable.java
+│   │   │           │
 │   │   │           ├── exception/
 │   │   │           │   ├── GlobalExceptionHandler.java
 │   │   │           │   ├── CustomerNotFoundException.java
@@ -216,7 +219,8 @@ cbs-backend/
 │   │       │       ├── V3__create_account_table.sql
 │   │       │       ├── V4__create_transaction_table.sql
 │   │       │       ├── V5__create_loan_table.sql
-│   │       │       └── V6__create_audit_log_table.sql
+│   │       │       ├── V6__create_audit_log_table.sql (Deprecated)
+│   │       │       └── V7__create_audit_log_table.sql
 │   │       │
 │   │       └── static/
 │   │           └── api-docs.html
