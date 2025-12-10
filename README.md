@@ -51,7 +51,7 @@ Supabase Storage
 * JWT Authentication + Authorization
 * Role-based access: `ADMIN`, `CUSTOMER`
 * Password hashing (BCrypt)
-* Audit logging on money-sensitive operations
+* Audit logging on money-sensitive operations & auth events (Login/Logout)
 * API rate limitation strategy (roadmap)
 
 Because **banking without security is just monopoly** 🫠
@@ -82,13 +82,13 @@ Because **banking without security is just monopoly** 🫠
 
 * Customer account control
 * Approval workflows
+* Approval workflows
 * Analytics dashboard (roadmap)
 
 ---
 
 ## 🏗️ Project Structure
 
-```
 cbs-backend/
 │
 ├── src/
@@ -100,12 +100,12 @@ cbs-backend/
 │   │   │           │
 │   │   │           ├── config/
 │   │   │           │   ├── SecurityConfig.java
-│   │   │           │   ├── DatabaseConfig.java
-│   │   │           │   ├── SchedulerConfig.java
-│   │   │           │   └── AuditConfig.java
+│   │   │           │   ├── DotenvConfig.java
+│   │   │           │   └── JwtAuthenticationFilter.java
 │   │   │           │
 │   │   │           ├── controller/
-│   │   │           │   ├── CustomerController.java
+│   │   │           │   ├── AuthController.java
+│   │   │           │   ├── UserController.java
 │   │   │           │   ├── AccountController.java
 │   │   │           │   ├── TransactionController.java
 │   │   │           │   ├── LoanController.java
@@ -114,25 +114,25 @@ cbs-backend/
 │   │   │           │
 │   │   │           ├── service/
 │   │   │           │   ├── interface/
-│   │   │           │   │   ├── CustomerService.java
+│   │   │           │   │   ├── AuthService.java
+│   │   │           │   │   ├── UserService.java
 │   │   │           │   │   ├── AccountService.java
 │   │   │           │   │   ├── TransactionService.java
 │   │   │           │   │   ├── LoanService.java
 │   │   │           │   │   ├── KYCService.java
-│   │   │           │   │   ├── EligibilityEngine.java
 │   │   │           │   │   └── AuditService.java
 │   │   │           │   │
 │   │   │           │   └── impl/
-│   │   │           │       ├── CustomerServiceImpl.java
+│   │   │           │       ├── AuthServiceImpl.java
+│   │   │           │       ├── UserServiceImpl.java
 │   │   │           │       ├── AccountServiceImpl.java
 │   │   │           │       ├── TransactionServiceImpl.java
 │   │   │           │       ├── LoanServiceImpl.java
 │   │   │           │       ├── KYCServiceImpl.java
-│   │   │           │       ├── EligibilityEngineImpl.java
 │   │   │           │       └── AuditServiceImpl.java
 │   │   │           │
 │   │   │           ├── repository/
-│   │   │           │   ├── CustomerRepository.java
+│   │   │           │   ├── UserRepository.java
 │   │   │           │   ├── AccountRepository.java
 │   │   │           │   ├── TransactionRepository.java
 │   │   │           │   ├── LoanRepository.java
@@ -141,32 +141,36 @@ cbs-backend/
 │   │   │           │
 │   │   │           ├── model/
 │   │   │           │   ├── entity/
-│   │   │           │   │   ├── Customer.java
-│   │   │           │   │   ├── KYC.java
+│   │   │           │   │   ├── User.java
 │   │   │           │   │   ├── Account.java
 │   │   │           │   │   ├── Transaction.java
 │   │   │           │   │   ├── Loan.java
+│   │   │           │   │   ├── KYC.java
 │   │   │           │   │   └── AuditLog.java
 │   │   │           │   │
 │   │   │           │   ├── dto/
 │   │   │           │   │   ├── request/
-│   │   │           │   │   │   ├── CustomerRegistrationRequest.java
-│   │   │           │   │   │   ├── KYCUploadRequest.java
+│   │   │           │   │   │   ├── UserRegistrationRequest.java
+│   │   │           │   │   │   ├── LoginRequest.java
 │   │   │           │   │   │   ├── AccountCreationRequest.java
 │   │   │           │   │   │   ├── DepositRequest.java
 │   │   │           │   │   │   ├── WithdrawalRequest.java
 │   │   │           │   │   │   ├── TransferRequest.java
-│   │   │           │   │   │   └── LoanApplicationRequest.java
+│   │   │           │   │   │   ├── LoanApplicationRequest.java
+│   │   │           │   │   │   └── KYCUploadRequest.java
 │   │   │           │   │   │
 │   │   │           │   │   └── response/
-│   │   │           │   │       ├── CustomerResponse.java
+│   │   │           │   │       ├── JwtResponse.java
+│   │   │           │   │       ├── UserResponse.java
 │   │   │           │   │       ├── AccountResponse.java
 │   │   │           │   │       ├── TransactionResponse.java
 │   │   │           │   │       ├── LoanResponse.java
+│   │   │           │   │       ├── KYCResponse.java
 │   │   │           │   │       ├── AuditLogResponse.java
 │   │   │           │   │       └── ApiResponse.java
 │   │   │           │   │
 │   │   │           │   └── enums/
+│   │   │           │       ├── UserStatus.java
 │   │   │           │       ├── AccountType.java
 │   │   │           │       ├── AccountStatus.java
 │   │   │           │       ├── TransactionType.java
@@ -175,51 +179,24 @@ cbs-backend/
 │   │   │           │       ├── KYCStatus.java
 │   │   │           │       └── AuditAction.java
 │   │   │           │
-│   │   │           ├── exception/
-│   │   │           │   ├── GlobalExceptionHandler.java
-│   │   │           │   ├── CustomerNotFoundException.java
-│   │   │           │   ├── AccountNotFoundException.java
-│   │   │           │   ├── InsufficientBalanceException.java
-│   │   │           │   ├── KYCNotVerifiedException.java
-│   │   │           │   ├── InvalidTransactionException.java
-│   │   │           │   └── LoanProcessingException.java
+│   │   │           ├── annotation/
+│   │   │           │   └── Auditable.java
 │   │   │           │
-│   │   │           ├── validator/
-│   │   │           │   ├── KYCValidator.java
-│   │   │           │   ├── AccountValidator.java
-│   │   │           │   ├── TransactionValidator.java
-│   │   │           │   └── LoanEligibilityValidator.java
-│   │   │           │
-│   │   │           ├── scheduler/
-│   │   │           │   ├── EMIScheduler.java
-│   │   │           │   └── AccountMaintenanceScheduler.java
-│   │   │           │
-│   │   │           ├── util/
-│   │   │           │   ├── AccountNumberGenerator.java
-│   │   │           │   ├── TransactionIdGenerator.java
-│   │   │           │   ├── DateUtil.java
-│   │   │           │   └── EMICalculator.java
-│   │   │           │
-│   │   │           └── aspect/
-│   │   │               ├── AuditAspect.java
-│   │   │               ├── TransactionAspect.java
-│   │   │               └── LoggingAspect.java
+│   │   │           ├── aspect/
+│   │   │               └── AuditAspect.java
 │   │   │
 │   │   └── resources/
 │   │       ├── application.yml
-│   │       ├── application-dev.yml
-│   │       ├── application-prod.yml
 │   │       ├── db/
 │   │       │   └── migration/
-│   │       │       ├── V1__create_customer_table.sql
-│   │       │       ├── V2__create_kyc_table.sql
-│   │       │       ├── V3__create_account_table.sql
-│   │       │       ├── V4__create_transaction_table.sql
-│   │       │       ├── V5__create_loan_table.sql
-│   │       │       └── V6__create_audit_log_table.sql
+│   │       │       ├── V1__create_user_table.sql
+│   │       │       ├── V2__create_account_table.sql
+│   │       │       ├── V3__create_transaction_table.sql
+│   │       │       ├── V4__create_kyc_table.sql
+│   │       │       └── V7__create_audit_log_table.sql
 │   │       │
 │   │       └── static/
-│   │           └── api-docs.html
+│   │           └── CBS_class_diagram.puml
 │   │
 │   └── test/
 │       └── java/
@@ -229,12 +206,6 @@ cbs-backend/
 │                   ├── service/
 │                   ├── repository/
 │                   └── integration/
-│
-├── docker/
-│   ├── Dockerfile
-│   ├── docker-compose.yml
-│   └── init-scripts/
-│       └── init.sql
 │
 ├── .gitignore
 ├── pom.xml
@@ -469,6 +440,8 @@ Swagger UI:
 | Login                                | POST   | `/api/auth/login`        | ❌    |
 | View Accounts                        | GET    | `/api/accounts`          | ✅    |
 | Transfer Money                       | POST   | `/api/accounts/transfer` | ✅    |
+| View Audit Logs (Admin)              | GET    | `/api/audit/logs`        | ✅ (Admin) |
+| View User Audit Logs                 | GET    | `/api/audit/logs/user/{id}`| ✅ (Self/Admin) |
 | *(Add more after backend finalized)* |        |                          |      |
 
 ---
@@ -532,3 +505,7 @@ Pull requests are welcome — don’t break the bank (literally).
 This project will be licensed after MVP finalization.
 
 -----
+
+
+
+
