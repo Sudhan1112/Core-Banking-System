@@ -1,0 +1,23 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< org.example:core-banking-system >-------------------
+[INFO] Building Core Banking System 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ core-banking-system ---
+[INFO] Deleting C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ core-banking-system ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 7 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ core-banking-system ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 70 source files with javac [debug release 21] to target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.472 s
+[INFO] Finished at: 2025-12-11T00:36:38+05:30
+[INFO] ------------------------------------------------------------------------

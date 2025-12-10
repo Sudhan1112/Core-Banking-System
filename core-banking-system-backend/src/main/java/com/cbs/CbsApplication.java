@@ -6,22 +6,26 @@ import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.annotation.PostConstruct;
 
-@SpringBootApplication 
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+@SpringBootApplication
+@EnableJpaAuditing
 public class CbsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CbsApplication.class, args);
     }
-    
+
     @Autowired
     private Environment env;
-    
+
     @PostConstruct
     public void init() {
         System.out.println("=== Environment Check ===");
         String url = null;
         String user = null;
-        // Prefer process environment so we avoid Spring placeholder resolution exceptions
+        // Prefer process environment so we avoid Spring placeholder resolution
+        // exceptions
         try {
             url = System.getenv("SPRING_DATASOURCE_URL");
             user = System.getenv("SPRING_DATASOURCE_USERNAME");
@@ -29,7 +33,8 @@ public class CbsApplication {
             // ignore
         }
 
-        // Fallback to Spring Environment safely (catch any placeholder resolution problems)
+        // Fallback to Spring Environment safely (catch any placeholder resolution
+        // problems)
         if (url == null) {
             try {
                 url = env.getProperty("spring.datasource.url");
