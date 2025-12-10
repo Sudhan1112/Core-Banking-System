@@ -3,6 +3,19 @@
 **Secure | Scalable | Enterprise-Grade Banking App**
 
 > A modern digital banking platform enabling secure user onboarding, account management, money transfers, claims processing, and real-time balance updates.
+>
+> ---
+>
+> ## 🟢 Project Status: Backend 85% Complete
+>
+> | Module | Status | Tests | Notes |
+> | :--- | :---: | :---: | :--- |
+> | **User** | ✅ Done | ✅ Passing | Full registration/login flow |
+> | **Account** | ✅ Done | ✅ Passing | Multi-account support |
+> | **Transaction** | ✅ Done | ✅ Passing | Secure money transfer logic |
+> | **Loan** | ✅ Done | ⚠️ Partial | Needs Integration Tests |
+> | **Audit** | ✅ Done | ✅ Passing | Tracks all critical actions |
+> | **KYC** | ✅ Done | ❌ Missing | Needs full test suite |
 
 ---
 
@@ -51,7 +64,7 @@ Supabase Storage
 * JWT Authentication + Authorization
 * Role-based access: `ADMIN`, `CUSTOMER`
 * Password hashing (BCrypt)
-* Audit logging on money-sensitive operations
+* Audit logging on money-sensitive operations & auth events (Login/Logout)
 * API rate limitation strategy (roadmap)
 
 Because **banking without security is just monopoly** 🫠
@@ -82,7 +95,15 @@ Because **banking without security is just monopoly** 🫠
 
 * Customer account control
 * Approval workflows
+* Customer account control
+* Approval workflows
 * Analytics dashboard (roadmap)
+
+### 📋 Audit System (New!)
+
+* Tracks WHO did WHAT and WHEN.
+* Captures IP, User Agent, and previous/new values for data changes.
+* Admin-only access to view logs via API.
 
 ---
 
@@ -219,7 +240,6 @@ cbs-backend/
 │   │       │       ├── V3__create_account_table.sql
 │   │       │       ├── V4__create_transaction_table.sql
 │   │       │       ├── V5__create_loan_table.sql
-│   │       │       ├── V6__create_audit_log_table.sql (Deprecated)
 │   │       │       └── V7__create_audit_log_table.sql
 │   │       │
 │   │       └── static/
@@ -473,6 +493,8 @@ Swagger UI:
 | Login                                | POST   | `/api/auth/login`        | ❌    |
 | View Accounts                        | GET    | `/api/accounts`          | ✅    |
 | Transfer Money                       | POST   | `/api/accounts/transfer` | ✅    |
+| View Audit Logs (Admin)              | GET    | `/api/audit/logs`        | ✅ (Admin) |
+| View User Audit Logs                 | GET    | `/api/audit/logs/user/{id}`| ✅ (Self/Admin) |
 | *(Add more after backend finalized)* |        |                          |      |
 
 ---
@@ -538,4 +560,5 @@ This project will be licensed after MVP finalization.
 -----
 
 
-````
+
+
