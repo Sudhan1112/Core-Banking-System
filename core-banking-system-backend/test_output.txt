@@ -1,0 +1,48 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< org.example:core-banking-system >-------------------
+[INFO] Building Core Banking System 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ core-banking-system ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 7 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ core-banking-system ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ core-banking-system ---
+[INFO] skip non existing resourceDirectory C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ core-banking-system ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 20 source files with javac [debug release 21] to target\test-classes
+[INFO] /C:/Users/Sudhan S/OneDrive/Desktop/projects/Core-banking-system/core-banking-system-backend/src/test/java/com/cbs/integration/TransactionIntegrationTest.java: C:\Users\Sudhan S\OneDrive\Desktop\projects\Core-banking-system\core-banking-system-backend\src\test\java\com\cbs\integration\TransactionIntegrationTest.java uses unchecked or unsafe operations.
+[INFO] /C:/Users/Sudhan S/OneDrive/Desktop/projects/Core-banking-system/core-banking-system-backend/src/test/java/com/cbs/integration/TransactionIntegrationTest.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/Sudhan S/OneDrive/Desktop/projects/Core-banking-system/core-banking-system-backend/src/test/java/com/cbs/service/AuditServiceImplTest.java:[34,13] cannot find symbol
+  symbol:   class AuditServiceImpl
+  location: class com.cbs.service.AuditServiceImplTest
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.339 s
+[INFO] Finished at: 2025-12-11T00:37:00+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:testCompile (default-testCompile) on project core-banking-system: Compilation failure
+[ERROR] /C:/Users/Sudhan S/OneDrive/Desktop/projects/Core-banking-system/core-banking-system-backend/src/test/java/com/cbs/service/AuditServiceImplTest.java:[34,13] cannot find symbol
+[ERROR]   symbol:   class AuditServiceImpl
+[ERROR]   location: class com.cbs.service.AuditServiceImplTest
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
