@@ -229,6 +229,26 @@ public class Loan {
         this.updatedAt = updatedAt;
     }
 
+    public void setDisbursementDate(LocalDate disbursementDate) {
+        this.disbursementDate = disbursementDate;
+    }
+
+    public void setMaturityDate(LocalDate maturityDate) {
+        this.maturityDate = maturityDate;
+    }
+
+    public void setCollateralValue(BigDecimal collateralValue) {
+        this.collateralValue = collateralValue;
+    }
+
+    public void setGuarantorId(Long guarantorId) {
+        this.guarantorId = guarantorId;
+    }
+
+    public void setLatePaymentPenalty(BigDecimal latePaymentPenalty) {
+        this.latePaymentPenalty = latePaymentPenalty;
+    }
+
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
