@@ -2,37 +2,35 @@
 
 **Secure | Scalable | Enterprise-Grade Banking App**
 
-> A modern digital banking platform enabling secure user onboarding, account management, money transfers, claims processing, and real-time balance updates.
+A modern digital banking platform enabling secure onboarding, account management, transactions, claims processing, and real-time balance updates — built with clean architecture and enterprise-grade practices.
 
 ---
 
 ## 🎯 Vision
 
-Banking UI that doesn’t look like it’s stuck in 2001 + backend firepower strong enough to handle real money.
-Open-source friendly, production-ready architecture.
+Build a banking UI that doesn’t look like it time-traveled from 2001 — backed by a powerful, modular backend that can handle real-world financial workloads.
+Open-source friendly. Production-ready.
 
 ---
 
 ## 🖥️ Tech Stack
 
-| Layer    | Technology                                                                     |
-| -------- | ------------------------------------------------------------------------------ |
-| Frontend | **Next.js**, Tailwind CSS, Axios, React Query/Context API, React Router v6     |
-| Backend  | **Spring Boot**, Spring Security + JWT, Spring Data JPA, Lombok, DTO + Mappers |
-| Database | **PostgreSQL** (ACID Transactions)                                             |
-| Storage  | **Supabase Storage** (KYC/Claim Documents)                                     |
-| DevOps   | Docker, Docker Compose, GitHub                                                 |
-| Testing  | JUnit 5, Mockito, MockMvc, TestContainers                                      |
+| Layer        | Technologies                                                               |
+| ------------ | -------------------------------------------------------------------------- |
+| **Frontend** | Next.js, Tailwind CSS, Axios, React Query / Context API, React Router v6   |
+| **Backend**  | Spring Boot, Spring Security (JWT), Spring Data JPA, Lombok, DTO + Mappers |
+| **Database** | PostgreSQL (ACID-compliant)                                                |
+| **Storage**  | Supabase Storage (KYC & Claims Documents)                                  |
+| **DevOps**   | Docker, Docker Compose, GitHub                                             |
+| **Testing**  | JUnit 5, Mockito, MockMvc, TestContainers                                  |
 
-✅ Handles real banking features
-✅ Optimized for hiring portfolios
-✅ Clean + scalable architecture
+✔ Real banking features
+✔ Scalable + clean architecture
+✔ Portfolio-ready for hiring managers
 
 ---
 
 ## 🧩 System Architecture
-
-Multi-tier micro-style architecture:
 
 ```
 Frontend (Next.js)
@@ -46,15 +44,15 @@ Supabase Storage
 
 ---
 
-## 🛡️ Security & Compliance
+## 🛡 Security & Compliance
 
-* JWT Authentication + Authorization
-* Role-based access: `ADMIN`, `CUSTOMER`
-* Password hashing (BCrypt)
-* Audit logging on money-sensitive operations & auth events (Login/Logout)
-* API rate limitation strategy (roadmap)
+* JWT-based authentication & authorization
+* Role-based access (`ADMIN`, `CUSTOMER`)
+* BCrypt password hashing
+* Audit logging for sensitive operations
+* Planned: API rate-limiting
 
-Because **banking without security is just monopoly** 🫠
+Banking without security = just vibes 🫠
 
 ---
 
@@ -62,450 +60,196 @@ Because **banking without security is just monopoly** 🫠
 
 ### 🔐 Authentication
 
-* Register/Login
+* Register & Login
 * JWT token flow
-* Forgot password (roadmap)
+* Forgot-password (coming soon)
 
 ### 🏦 Banking Operations
 
-* Open/Close Bank Accounts
+* Create/Close Accounts
+* Deposit / Withdraw / Transfer
 * View Transactions
-* Deposit / Withdraw / Transfer (with balance validation)
-* Account Status & Limits
+* Validate balance before transfer
+* Account limits & status
 
 ### 📄 Claims & Support
 
-* Upload documents to Supabase Storage
-* Claim creation + status tracking by admins
+* Upload documents (Supabase Storage)
+* Claim creation
+* Status tracking for admins
 
 ### 🎛 Admin Portal
 
-* Customer account control
-* Approval workflows
-* Approval workflows
-* Analytics dashboard (roadmap)
+* Manage users & accounts
+* Approvals workflow
+* Analytics dashboard (coming soon)
 
 ---
 
-## 🏗️ Project Structure
+## 🏗 Backend Project Structure
 
+*(Cleaned & consistently formatted)*
+
+```
 cbs-backend/
-│
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── cbs/
-│   │   │           ├── CbsApplication.java
-│   │   │           │
-│   │   │           ├── config/
-│   │   │           │   ├── SecurityConfig.java
-│   │   │           │   ├── DotenvConfig.java
-│   │   │           │   └── JwtAuthenticationFilter.java
-│   │   │           │
-│   │   │           ├── controller/
-│   │   │           │   ├── AuthController.java
-│   │   │           │   ├── UserController.java
-│   │   │           │   ├── AccountController.java
-│   │   │           │   ├── TransactionController.java
-│   │   │           │   ├── LoanController.java
-│   │   │           │   ├── KYCController.java
-│   │   │           │   └── AuditController.java
-│   │   │           │
-│   │   │           ├── service/
-│   │   │           │   ├── interface/
-│   │   │           │   │   ├── AuthService.java
-│   │   │           │   │   ├── UserService.java
-│   │   │           │   │   ├── AccountService.java
-│   │   │           │   │   ├── TransactionService.java
-│   │   │           │   │   ├── LoanService.java
-│   │   │           │   │   ├── KYCService.java
-│   │   │           │   │   └── AuditService.java
-│   │   │           │   │
-│   │   │           │   └── impl/
-│   │   │           │       ├── AuthServiceImpl.java
-│   │   │           │       ├── UserServiceImpl.java
-│   │   │           │       ├── AccountServiceImpl.java
-│   │   │           │       ├── TransactionServiceImpl.java
-│   │   │           │       ├── LoanServiceImpl.java
-│   │   │           │       ├── KYCServiceImpl.java
-│   │   │           │       └── AuditServiceImpl.java
-│   │   │           │
-│   │   │           ├── repository/
-│   │   │           │   ├── UserRepository.java
-│   │   │           │   ├── AccountRepository.java
-│   │   │           │   ├── TransactionRepository.java
-│   │   │           │   ├── LoanRepository.java
-│   │   │           │   ├── KYCRepository.java
-│   │   │           │   └── AuditLogRepository.java
-│   │   │           │
-│   │   │           ├── model/
-│   │   │           │   ├── entity/
-│   │   │           │   │   ├── User.java
-│   │   │           │   │   ├── Account.java
-│   │   │           │   │   ├── Transaction.java
-│   │   │           │   │   ├── Loan.java
-│   │   │           │   │   ├── KYC.java
-│   │   │           │   │   └── AuditLog.java
-│   │   │           │   │
-│   │   │           │   ├── dto/
-│   │   │           │   │   ├── request/
-│   │   │           │   │   │   ├── UserRegistrationRequest.java
-│   │   │           │   │   │   ├── LoginRequest.java
-│   │   │           │   │   │   ├── AccountCreationRequest.java
-│   │   │           │   │   │   ├── DepositRequest.java
-│   │   │           │   │   │   ├── WithdrawalRequest.java
-│   │   │           │   │   │   ├── TransferRequest.java
-│   │   │           │   │   │   ├── LoanApplicationRequest.java
-│   │   │           │   │   │   └── KYCUploadRequest.java
-│   │   │           │   │   │
-│   │   │           │   │   └── response/
-│   │   │           │   │       ├── JwtResponse.java
-│   │   │           │   │       ├── UserResponse.java
-│   │   │           │   │       ├── AccountResponse.java
-│   │   │           │   │       ├── TransactionResponse.java
-│   │   │           │   │       ├── LoanResponse.java
-│   │   │           │   │       ├── KYCResponse.java
-│   │   │           │   │       ├── AuditLogResponse.java
-│   │   │           │   │       └── ApiResponse.java
-│   │   │           │   │
-│   │   │           │   └── enums/
-│   │   │           │       ├── UserStatus.java
-│   │   │           │       ├── AccountType.java
-│   │   │           │       ├── AccountStatus.java
-│   │   │           │       ├── TransactionType.java
-│   │   │           │       ├── TransactionStatus.java
-│   │   │           │       ├── LoanStatus.java
-│   │   │           │       ├── KYCStatus.java
-│   │   │           │       └── AuditAction.java
-│   │   │           │
-│   │   │           ├── annotation/
-│   │   │           │   └── Auditable.java
-│   │   │           │
-│   │   │           ├── aspect/
-│   │   │               └── AuditAspect.java
-│   │   │
-│   │   └── resources/
-│   │       ├── application.yml
-│   │       ├── db/
-│   │       │   └── migration/
-│   │       │       ├── V1__create_user_table.sql
-│   │       │       ├── V2__create_account_table.sql
-│   │       │       ├── V3__create_transaction_table.sql
-│   │       │       ├── V4__create_kyc_table.sql
-│   │       │       └── V7__create_audit_log_table.sql
-│   │       │
-│   │       └── static/
-│   │           └── CBS_class_diagram.puml
-│   │
-│   └── test/
-│       └── java/
-│           └── com/
-│               └── cbs/
-│                   ├── controller/
-│                   ├── service/
-│                   ├── repository/
-│                   └── integration/
-│
-├── .gitignore
-├── pom.xml
-└── README.md
+└── src/
+    ├── main/java/com/cbs/
+    │   ├── CbsApplication.java
+    │   ├── config/
+    │   ├── controller/
+    │   ├── service/
+    │   │   ├── interface/
+    │   │   └── impl/
+    │   ├── repository/
+    │   ├── model/
+    │   │   ├── entity/
+    │   │   ├── dto/
+    │   │   │   ├── request/
+    │   │   │   └── response/
+    │   │   └── enums/
+    │   ├── annotation/
+    │   └── aspect/
+    │
+    └── main/resources/
+        ├── application.yml
+        └── db/migration (Flyway scripts)
 ```
 
-## Frontend Structure (Next.js - Feature-Based Architecture)
+---
+
+## 🖥 Frontend Structure (Next.js — Feature-Based Architecture)
+
 ```
 cbs-frontend/
-│
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
-│   │   ├── globals.css
-│   │   │
-│   │   ├── (auth)/
-│   │   │   ├── login/
-│   │   │   │   └── page.tsx
-│   │   │   └── register/
-│   │   │       └── page.tsx
-│   │   │
-│   │   ├── (dashboard)/
-│   │   │   ├── layout.tsx
-│   │   │   ├── dashboard/
-│   │   │   │   └── page.tsx
-│   │   │   │
-│   │   │   ├── accounts/
-│   │   │   │   ├── page.tsx
-│   │   │   │   ├── create/
-│   │   │   │   │   └── page.tsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.tsx
-│   │   │   │
-│   │   │   ├── transactions/
-│   │   │   │   ├── page.tsx
-│   │   │   │   ├── deposit/
-│   │   │   │   │   └── page.tsx
-│   │   │   │   ├── withdraw/
-│   │   │   │   │   └── page.tsx
-│   │   │   │   └── transfer/
-│   │   │   │       └── page.tsx
-│   │   │   │
-│   │   │   ├── loans/
-│   │   │   │   ├── page.tsx
-│   │   │   │   ├── apply/
-│   │   │   │   │   └── page.tsx
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.tsx
-│   │   │   │
-│   │   │   ├── kyc/
-│   │   │   │   ├── page.tsx
-│   │   │   │   └── upload/
-│   │   │   │       └── page.tsx
-│   │   │   │
-│   │   │   └── audit/
-│   │   │       └── page.tsx
-│   │   │
-│   │   └── api/
-│   │       └── (routes can be added here if needed)
-│   │
-│   ├── components/
-│   │   ├── layout/
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── Sidebar.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── DashboardLayout.tsx
-│   │   │
-│   │   ├── ui/
-│   │   │   ├── Button.tsx
-│   │   │   ├── Input.tsx
-│   │   │   ├── Card.tsx
-│   │   │   ├── Modal.tsx
-│   │   │   ├── Table.tsx
-│   │   │   ├── Alert.tsx
-│   │   │   ├── Badge.tsx
-│   │   │   ├── Spinner.tsx
-│   │   │   └── Toast.tsx
-│   │   │
-│   │   ├── features/
-│   │   │   ├── customer/
-│   │   │   │   ├── CustomerRegistrationForm.tsx
-│   │   │   │   ├── CustomerProfile.tsx
-│   │   │   │   └── CustomerList.tsx
-│   │   │   │
-│   │   │   ├── kyc/
-│   │   │   │   ├── KYCUploadForm.tsx
-│   │   │   │   ├── KYCStatus.tsx
-│   │   │   │   └── KYCDocumentViewer.tsx
-│   │   │   │
-│   │   │   ├── account/
-│   │   │   │   ├── AccountCard.tsx
-│   │   │   │   ├── AccountCreationForm.tsx
-│   │   │   │   ├── AccountDetails.tsx
-│   │   │   │   └── AccountList.tsx
-│   │   │   │
-│   │   │   ├── transaction/
-│   │   │   │   ├── TransactionForm.tsx
-│   │   │   │   ├── TransactionHistory.tsx
-│   │   │   │   ├── TransactionDetails.tsx
-│   │   │   │   ├── DepositForm.tsx
-│   │   │   │   ├── WithdrawalForm.tsx
-│   │   │   │   └── TransferForm.tsx
-│   │   │   │
-│   │   │   ├── loan/
-│   │   │   │   ├── LoanApplicationForm.tsx
-│   │   │   │   ├── LoanCard.tsx
-│   │   │   │   ├── LoanDetails.tsx
-│   │   │   │   ├── EMISchedule.tsx
-│   │   │   │   └── LoanList.tsx
-│   │   │   │
-│   │   │   └── audit/
-│   │   │       ├── AuditLogTable.tsx
-│   │   │       └── AuditFilters.tsx
-│   │   │
-│   │   └── shared/
-│   │       ├── ErrorBoundary.tsx
-│   │       ├── LoadingState.tsx
-│   │       └── EmptyState.tsx
-│   │
-│   ├── lib/
-│   │   ├── api/
-│   │   │   ├── client.ts
-│   │   │   ├── endpoints.ts
-│   │   │   └── services/
-│   │   │       ├── customerService.ts
-│   │   │       ├── accountService.ts
-│   │   │       ├── transactionService.ts
-│   │   │       ├── loanService.ts
-│   │   │       ├── kycService.ts
-│   │   │       └── auditService.ts
-│   │   │
-│   │   ├── hooks/
-│   │   │   ├── useAuth.ts
-│   │   │   ├── useAccount.ts
-│   │   │   ├── useTransaction.ts
-│   │   │   ├── useLoan.ts
-│   │   │   └── useAudit.ts
-│   │   │
-│   │   ├── utils/
-│   │   │   ├── formatters.ts
-│   │   │   ├── validators.ts
-│   │   │   ├── dateHelpers.ts
-│   │   │   └── constants.ts
-│   │   │
-│   │   └── context/
-│   │       ├── AuthContext.tsx
-│   │       ├── ThemeContext.tsx
-│   │       └── NotificationContext.tsx
-│   │
-│   ├── types/
-│   │   ├── customer.ts
-│   │   ├── account.ts
-│   │   ├── transaction.ts
-│   │   ├── loan.ts
-│   │   ├── kyc.ts
-│   │   ├── audit.ts
-│   │   └── api.ts
-│   │
-│   └── styles/
-│       └── (additional Tailwind configs if needed)
-│
-├── public/
-│   ├── images/
-│   ├── icons/
-│   └── fonts/
-│
-├── .env.local
-├── .env.example
-├── .gitignore
-├── next.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-├── package.json
-└── README.md
+└── src/
+    ├── app/
+    │   ├── (auth)/
+    │   ├── (dashboard)/
+    │   └── api/
+    ├── components/
+    │   ├── layout/
+    │   ├── ui/
+    │   ├── features/
+    │   └── shared/
+    ├── lib/
+    │   ├── api/
+    │   ├── hooks/
+    │   ├── utils/
+    │   └── context/
+    ├── types/
+    └── styles/
 ```
+
 ---
 
 ## 📊 Diagrams
 
-Below are the architectural and design diagrams used in this project.  
-UI/UX link will be added soon.
+### 🎨 UI / UX
 
----
+Coming soon – Figma link will be added.
 
-### 🎨 UI / UX  
-Link coming soon → 🔗 *Figma Design (To be added)*
+### 🧩 UML Class Diagram
 
----
+Located at:
+`docs/UML_Class_Diagram.png`
 
-### 🧩 UML Class Diagram  
-``docs/UML_Class_Diagram.png``
+Images:
 
 <details>
-  <summary>Click to view UML Diagram Images</summary>
+  <summary>Show UML Diagrams</summary>
 
-  <img width="1031" alt="UML Image 1" src="https://github.com/user-attachments/assets/57da33b7-5b73-4c6e-ae5d-0e66c06cccf5" />
-
-  <img width="547" alt="UML Image 2" src="https://github.com/user-attachments/assets/e88d70c7-e544-42d4-9bda-111c209cfdcf" />
-
-  <img width="463" alt="UML Image 3" src="https://github.com/user-attachments/assets/3483c2eb-785e-4dc1-bae4-6f89e4a4545a" />
-
-  <img width="419" alt="UML Image 4" src="https://github.com/user-attachments/assets/801d39f3-8090-40df-8309-9cea73223b7d" />
-
-  <img width="1081" alt="UML Image 5" src="https://github.com/user-attachments/assets/dd8878f5-c394-42dd-9d39-50989d61006a" />
-
+  <img width="1031" src="https://github.com/user-attachments/assets/57da33b7-5b73-4c6e-ae5d-0e66c06cccf5" />
+  <img width="547"  src="https://github.com/user-attachments/assets/e88d70c7-e544-42d4-9bda-111c209cfdcf" />
+  <img width="463"  src="https://github.com/user-attachments/assets/3483c2eb-785e-4dc1-bae4-6f89e4a4545a" />
+  <img width="419"  src="https://github.com/user-attachments/assets/801d39f3-8090-40df-8309-9cea73223b7d" />
+  <img width="1081" src="https://github.com/user-attachments/assets/dd8878f5-c394-42dd-9d39-50989d61006a" />
 </details>
 
 ---
 
-### 🗂️ ERD Diagram  
-``docs/ERD_Diagram.png``
+### 🗂 ERD Diagram
 
-**Miro Board:**  
-🔗 https://miro.com/app/board/uXjVJ9AxbxQ=/?share_link_id=687314840776
+`docs/ERD_Diagram.png`
 
-<img width="600" alt="ERD Image" src="https://github.com/user-attachments/assets/21184ef5-8bbf-4520-b0e9-7d7207a08012" />
+Miro Board:
+🔗 [https://miro.com/app/board/uXjVJ9AxbxQ=/?share_link_id=687314840776](https://miro.com/app/board/uXjVJ9AxbxQ=/?share_link_id=687314840776)
+
+<img width="600" src="https://github.com/user-attachments/assets/21184ef5-8bbf-4520-b0e9-7d7207a08012" />
 
 ---
-
 
 ## 🔗 API Documentation
 
 Swagger UI:
-➡️ `http://localhost:8080/swagger-ui/index.html`
+`http://localhost:8080/swagger-ui/index.html`
 
-### Endpoints Table (To Be Updated 👇)
+### Endpoints (more will be added)
 
-| Feature                              | Method | Endpoint                 | Auth |
-| ------------------------------------ | ------ | ------------------------ | ---- |
-| Register                             | POST   | `/api/auth/register`     | ❌    |
-| Login                                | POST   | `/api/auth/login`        | ❌    |
-| View Accounts                        | GET    | `/api/accounts`          | ✅    |
-| Transfer Money                       | POST   | `/api/accounts/transfer` | ✅    |
-| View Audit Logs (Admin)              | GET    | `/api/audit/logs`        | ✅ (Admin) |
-| View User Audit Logs                 | GET    | `/api/audit/logs/user/{id}`| ✅ (Self/Admin) |
-| *(Add more after backend finalized)* |        |                          |      |
+| Feature                 | Method | Endpoint                    | Auth       |
+| ----------------------- | ------ | --------------------------- | ---------- |
+| Register                | POST   | `/api/auth/register`        | ❌          |
+| Login                   | POST   | `/api/auth/login`           | ❌          |
+| View Accounts           | GET    | `/api/accounts`             | ✅          |
+| Transfer Money          | POST   | `/api/accounts/transfer`    | ✅          |
+| View Audit Logs (Admin) | GET    | `/api/audit/logs`           | Admin      |
+| View User Logs          | GET    | `/api/audit/logs/user/{id}` | Self/Admin |
 
 ---
 
 ## 🧪 Testing Suite
 
-* **Unit Tests** → Business logic via JUnit + Mockito
-* **Controller Tests** → MockMvc
-* **Integration DB Tests** → TestContainers
-* **Seed Data** → @Sql scripts
-
-Trust Issues? We test it.
+* Unit Tests → JUnit + Mockito
+* Controller Tests → MockMvc
+* Integration Tests → TestContainers
+* @Sql for seed/test data
 
 ---
 
 ## 🐳 Docker Support
 
-One command to run everything (Backend + Database):
+Run backend + PostgreSQL together:
 
 ```sh
 docker compose up --build
 ```
 
-Spins up:
-✅ Backend (Port 8080)
-✅ PostgreSQL (Port 5432)
+Runs:
+✔ Backend → :8080
+✔ PostgreSQL → :5432
 
 ---
 
-## 💻 Running Locally (Manual)
+## 💻 Local Development
 
-If you prefer running without Docker, utilize the helper scripts which auto-configure the environment (and even Maven):
+Manual run scripts included:
 
-* **Windows**: `.\run-dev.ps1`
-* **Linux/Mac**: `./run-dev.sh`
+* Windows → `.\run-dev.ps1`
+* Linux/Mac → `./run-dev.sh`
 
 ---
 
 ## 📌 Roadmap
 
-* ✅ JWT + RBAC + Accounts
+* ✅ JWT + RBAC
 * 🔜 Notifications System
-* 🔜 Claim Approval Logic Automation
-* 🔜 Multi-Currency Support
-* 🔜 CI/CD with GitHub Actions
-* 🔜 Analytics Dashboard + Charts
+* 🔜 Automated Claim Approval
+* 🔜 Multi-Currency
+* 🔜 CI/CD (GitHub Actions)
+* 🔜 Analytics Dashboard
 
-We don’t stop — we ship 📦
+Shipping season never ends 📦
 
 ---
 
-## 🧑‍💻 Author & Contributions
+## 🧑‍💻 Author
 
-Built by: **Sudhan** 👑
-Pull requests are welcome — don’t break the bank (literally).
+Built by **Sudhan** 👑
+Pull requests welcome — just don’t accidentally trigger a global recession.
 
 ---
 
 ## 📜 License
 
-This project will be licensed after MVP finalization.
+To be added post-MVP.
 
------
-
-
-
-
+---
