@@ -91,28 +91,145 @@ Banking without security = just vibes 🫠
 *(Cleaned & consistently formatted)*
 
 ```
-cbs-backend/
-└── src/
-    ├── main/java/com/cbs/
-    │   ├── CbsApplication.java
-    │   ├── config/
-    │   ├── controller/
-    │   ├── service/
-    │   │   ├── interface/
-    │   │   └── impl/
-    │   ├── repository/
-    │   ├── model/
-    │   │   ├── entity/
-    │   │   ├── dto/
-    │   │   │   ├── request/
-    │   │   │   └── response/
-    │   │   └── enums/
-    │   ├── annotation/
-    │   └── aspect/
-    │
-    └── main/resources/
-        ├── application.yml
-        └── db/migration (Flyway scripts)
+core-banking-system-backend/
+│
+├── src/
+│   ├── main/
+│   │   ├── java/com/cbs/
+│   │   │
+│   │   │── annotation/
+│   │   │     └── Auditable.java
+│   │   │
+│   │   │── aspect/
+│   │   │     ├── AuditAspect.java
+│   │   │     └── ErrorLoggingAspect.java
+│   │   │
+│   │   │── config/
+│   │   │     ├── DotenvConfig.java
+│   │   │     ├── JwtAuthenticationFilter.java
+│   │   │     └── SecurityConfig.java
+│   │   │
+│   │   │── controller/
+│   │   │     ├── AccountController.java
+│   │   │     ├── AuditController.java
+│   │   │     ├── AuthController.java
+│   │   │     ├── ErrorController.java
+│   │   │     ├── KYCController.java
+│   │   │     ├── LoanController.java
+│   │   │     ├── TransactionController.java
+│   │   │     └── UserController.java
+│   │   │
+│   │   │── model/
+│   │   │   ├── request/
+│   │   │   │     ├── AccountCreationRequest.java
+│   │   │   │     ├── DepositRequest.java
+│   │   │   │     ├── KYCUploadRequest.java
+│   │   │   │     ├── KYCVerificationRequest.java
+│   │   │   │     ├── LoanApplicationRequest.java
+│   │   │   │     ├── LoginRequest.java
+│   │   │   │     ├── TransferRequest.java
+│   │   │   │     ├── UserRegistrationRequest.java
+│   │   │   │     └── WithdrawalRequest.java
+│   │   │   │
+│   │   │   ├── response/
+│   │   │   │     ├── AccountResponse.java
+│   │   │   │     ├── ApiResponse.java
+│   │   │   │     ├── AuditLogResponse.java
+│   │   │   │     ├── ErrorLogResponse.java
+│   │   │   │     ├── JwtResponse.java
+│   │   │   │     ├── KYCResponse.java
+│   │   │   │     ├── LoanResponse.java
+│   │   │   │     ├── TransactionResponse.java
+│   │   │   │     └── UserResponse.java
+│   │   │   │
+│   │   │   ├── entity/
+│   │   │   │     ├── Account.java
+│   │   │   │     ├── AuditLog.java
+│   │   │   │     ├── ErrorLog.java
+│   │   │   │     ├── KYC.java
+│   │   │   │     ├── Loan.java
+│   │   │   │     ├── Transaction.java
+│   │   │   │     └── User.java
+│   │   │   │
+│   │   │   └── enums/
+│   │   │         ├── AccountStatus.java
+│   │   │         ├── AccountType.java
+│   │   │         ├── AuditAction.java
+│   │   │         ├── DocumentType.java
+│   │   │         ├── ErrorLevel.java
+│   │   │         ├── KYCStatus.java
+│   │   │         ├── LoanStatus.java
+│   │   │         ├── TransactionStatus.java
+│   │   │         ├── TransactionType.java
+│   │   │         └── UserStatus.java
+│   │   │
+│   │   │── repository/
+│   │   │     ├── AccountRepository.java
+│   │   │     ├── AuditLogRepository.java
+│   │   │     ├── ErrorLogRepository.java
+│   │   │     ├── KYCRepository.java
+│   │   │     ├── LoanRepository.java
+│   │   │     ├── TransactionRepository.java
+│   │   │     └── UserRepository.java
+│   │   │
+│   │   │── security/
+│   │   │     └── UserSecurity.java
+│   │   │
+│   │   │── service/
+│   │   │   ├── impl/
+│   │   │   │     ├── AccountServiceImpl.java
+│   │   │   │     ├── AuditServiceImpl.java
+│   │   │   │     ├── AuthServiceImpl.java
+│   │   │   │     ├── CustomUserDetailsService.java
+│   │   │   │     ├── ErrorServiceImpl.java
+│   │   │   │     ├── KYCServiceImpl.java
+│   │   │   │     ├── LoanServiceImpl.java
+│   │   │   │     ├── TransactionServiceImpl.java
+│   │   │   │     └── UserServiceImpl.java
+│   │   │   │
+│   │   │   └── interface/
+│   │   │         ├── AccountService.java
+│   │   │         ├── AuditService.java
+│   │   │         ├── AuthService.java
+│   │   │         ├── ErrorService.java
+│   │   │         ├── KYCService.java
+│   │   │         ├── LoanService.java
+│   │   │         ├── TransactionService.java
+│   │   │         └── UserService.java
+│   │   │
+│   │   │── util/
+│   │   │     ├── AccountNumberGenerator.java
+│   │   │     ├── JwtUtils.java
+│   │   │     └── TransactionIdGenerator.java
+│   │   │
+│   │   │── CbsApplication.java
+│   │   │
+│   │   ├── resources/
+│   │   │   ├── application.yml
+│   │   │   ├── application-dev.yml
+│   │   │   ├── application-test.yml
+│   │   │   ├── db/migrations/
+│   │   │   │     ├── V1__create_user_table.sql
+│   │   │   │     ├── V2__create_account_table.sql
+│   │   │   │     ├── V3__create_transaction_table.sql
+│   │   │   │     ├── V4__create_kyc_table.sql
+│   │   │   │     ├── V5__create_loan_table.sql
+│   │   │   │     └── V6__create_error_log_table.sql
+│   │   │   └── static/
+│   │   │         └── CBS_class_diagram.puml
+│   │
+│   └── test/java/com/cbs/
+│       ├── config/
+│       ├── controller/
+│       ├── integration/
+│       ├── repository/
+│       └── service/
+│
+├── uploads/ (Supabase-local dev storage)
+├── Dockerfile
+├── docker-compose.yml
+├── pom.xml
+└── run-dev.sh / run-dev.ps1
 ```
 
 ---
